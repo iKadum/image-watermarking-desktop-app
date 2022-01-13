@@ -45,6 +45,22 @@ def select_watermark_image():
     global watermark_image
     watermark_image = fd.askopenfilename(initialdir=".", title="Select an Image")
     label_watermark_image.configure(text=f"Chosen image: {watermark_image}")
+    # radio_state.set("image")
+
+
+def radio_used():
+    if radio_state.get() == "image":
+        label_choose_watermark.configure(state="normal")
+        select_watermark_button.configure(state="normal")
+        label_watermark_image.configure(state="normal")
+        label_watermark_text.configure(state="disabled")
+        entry_watermark_text.configure(state="disabled")
+    else:
+        label_choose_watermark.configure(state="disabled")
+        select_watermark_button.configure(state="disabled")
+        label_watermark_image.configure(state="disabled")
+        label_watermark_text.configure(state="normal")
+        entry_watermark_text.configure(state="normal")
 
 
 def watermark_func():
@@ -55,7 +71,6 @@ def watermark_func():
         image_watermark(image, watermark_image, output_image)
 
     messagebox.showinfo(title="Watermark Added", message="Watermark successfully added to image!")
-
 
 
 window = tk.Tk()
@@ -73,9 +88,10 @@ label_image = tk.Label(text="Chosen image: none")
 label_image.grid(column=0, row=2, sticky="W")
 
 
-radio_state = tk.StringVar(None, "text")
-radiobutton1 = tk.Radiobutton(text="Text Watermark", value="text", variable=radio_state)
-radiobutton1.grid(column=0, row=3, sticky="W")
+radio_state = tk.StringVar()
+radio_state.set("text")
+radiobutton_text = tk.Radiobutton(text="Text Watermark", value="text", variable=radio_state, command=radio_used)
+radiobutton_text.grid(column=0, row=3, sticky="W")
 
 label_watermark_text = tk.Label(text="Enter Watermark Text: ")
 label_watermark_text.grid(column=0, row=4, sticky="W")
@@ -83,17 +99,20 @@ label_watermark_text.grid(column=0, row=4, sticky="W")
 entry_watermark_text = tk.Entry()
 entry_watermark_text.grid(column=0, row=5, sticky="W")
 
-radiobutton2 = tk.Radiobutton(text="Image Watermark", value="image", variable=radio_state)
-radiobutton2.grid(column=0, row=6, sticky="W")
+radiobutton_image = tk.Radiobutton(text="Image Watermark", value="image", variable=radio_state, command=radio_used)
+radiobutton_image.grid(column=0, row=6, sticky="W")
 
-label_choose_watermark = tk.Label(text="Choose watermark image: ")
+label_choose_watermark = tk.Label(text="Choose watermark image: none")
 label_choose_watermark.grid(column=0, row=7, sticky="W")
+label_choose_watermark.configure(state="disabled")
 
 select_watermark_button = tk.Button(text="Browse images", command=select_watermark_image)
 select_watermark_button.grid(column=0, row=8, sticky="W")
+select_watermark_button.configure(state="disabled")
 
 label_watermark_image = tk.Label(text="Chosen image: none")
 label_watermark_image.grid(column=0, row=9, sticky="W")
+label_watermark_image.configure(state="disabled")
 
 watermark_button = tk.Button(text="Watermark the selected image!", command=watermark_func)
 watermark_button.grid(column=0, row=10,  sticky="W")
