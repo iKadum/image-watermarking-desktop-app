@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog as fd
+from tkinter import messagebox
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -52,6 +53,9 @@ def watermark_func():
         text_watermark(image, entry_watermark_text.get(), output_image)
     else:
         image_watermark(image, watermark_image, output_image)
+
+    messagebox.showinfo(title="Watermark Added", message="Watermark successfully added to image!")
+
 
 
 window = tk.Tk()
