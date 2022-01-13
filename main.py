@@ -44,7 +44,7 @@ def select_watermark_image():
 
 def watermark_func():
     option = radio_state.get()
-    if option == 1:
+    if option == "text":
         text_watermark(image, entry_watermark_text.get(), output_image)
     else:
         image_watermark(image, watermark_image, output_image)
@@ -65,8 +65,8 @@ label_image = tk.Label(text="Chosen image: none")
 label_image.grid(column=0, row=2, sticky="W")
 
 
-radio_state = tk.IntVar()
-radiobutton1 = tk.Radiobutton(text="Text Watermark", value=1, variable=radio_state)
+radio_state = tk.StringVar(None, "text")
+radiobutton1 = tk.Radiobutton(text="Text Watermark", value="text", variable=radio_state)
 radiobutton1.grid(column=0, row=3, sticky="W")
 
 label_watermark_text = tk.Label(text="Enter Watermark Text: ")
@@ -75,7 +75,7 @@ label_watermark_text.grid(column=0, row=4, sticky="W")
 entry_watermark_text = tk.Entry()
 entry_watermark_text.grid(column=0, row=5, sticky="W")
 
-radiobutton2 = tk.Radiobutton(text="Image Watermark", value=2, variable=radio_state)
+radiobutton2 = tk.Radiobutton(text="Image Watermark", value="image", variable=radio_state)
 radiobutton2.grid(column=0, row=6, sticky="W")
 
 label_choose_watermark = tk.Label(text="Choose watermark image: ")
