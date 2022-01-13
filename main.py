@@ -5,6 +5,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 def text_watermark(image_path, watermark_text, output_path, text_color="black"):
     im = Image.open(image_path)
+    if im.mode in ("RGBA", "P"):
+        im = im.convert("RGB")
     width, height = im.size
     draw = ImageDraw.Draw(im)
     font = ImageFont.truetype("arial.ttf", height // 10)
@@ -19,6 +21,8 @@ def text_watermark(image_path, watermark_text, output_path, text_color="black"):
 
 def image_watermark(image_path, watermark_path, output_path):
     im = Image.open(image_path)
+    if im.mode in ("RGBA", "P"):
+        im = im.convert("RGB")
     width, height = im.size
     watermark = Image.open(watermark_path)
     wm_width, wm_height = watermark.size
