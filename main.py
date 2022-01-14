@@ -92,13 +92,16 @@ def radio_used():
 
 
 def watermark_func():
-    option = radio_state.get()
-    if option == "text":
-        text_watermark(image, entry_watermark_text.get(), output_image)
-    else:
-        image_watermark(image, watermark_image, output_image)
+    try:
+        option = radio_state.get()
+        if option == "text":
+            text_watermark(image, entry_watermark_text.get(), output_image)
+        else:
+            image_watermark(image, watermark_image, output_image)
 
-    messagebox.showinfo(title="Watermark Added", message="Watermark successfully added to image!")
+        messagebox.showinfo(title="Watermark Added", message="Watermark successfully added to image!")
+    except AttributeError:
+        messagebox.showerror(title="Error", message="Please select an image!")
 
 
 window = tk.Tk()
