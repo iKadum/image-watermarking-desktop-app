@@ -66,15 +66,17 @@ def image_watermark(image_path, watermark_path, output_path):
 def select_image():
     global image
     image = fd.askopenfilename(initialdir=".", title="Select an Image")
+    folder = image.split("/")[-2]
     filename = image.split("/")[-1]
-    label_image.configure(text=f"Chosen image: {filename}")
+    label_image.configure(text=f"Chosen image: {folder}/{filename}")
 
 
 def select_watermark_image():
     global watermark_image
     watermark_image = fd.askopenfilename(initialdir=".", title="Select an Image")
+    folder = image.split("/")[-2]
     watermark_filename = watermark_image.split("/")[-1]
-    label_watermark_image.configure(text=f"Chosen image: {watermark_filename}")
+    label_watermark_image.configure(text=f"Chosen image: {folder}/{watermark_filename}")
     # radio_state.set("image")
 
 
