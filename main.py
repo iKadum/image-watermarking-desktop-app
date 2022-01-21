@@ -94,26 +94,22 @@ def radio_used():
         label_watermark_image.configure(state="normal")
         label_watermark_text.configure(state="disabled")
         entry_watermark_text.configure(state="disabled")
-        text_color_listbox.configure(state="disabled")
+        text_color_menu.configure(state="disabled")
     else:
         label_choose_watermark.configure(state="disabled")
         select_watermark_button.configure(state="disabled")
         label_watermark_image.configure(state="disabled")
         label_watermark_text.configure(state="normal")
         entry_watermark_text.configure(state="normal")
-        text_color_listbox.configure(state="normal")
-
-
-def text_color_listbox_used(event):
-    global r
-    global g
-    global b
-    text_color = text_color_listbox.get(text_color_listbox.curselection())
-    r, g, b = (COLORS[text_color])
-    return event  # this line is only to "use" event so the code has no warnings :)
+        text_color_menu.configure(state="normal")
 
 
 def watermark_func():
+    global r
+    global g
+    global b
+    text_color = selected_color.get()
+    r, g, b = (COLORS[text_color])
     try:
         option = radio_state.get()
         if option == "text":
@@ -152,14 +148,13 @@ label_watermark_text.grid(column=0, row=4, sticky="W")
 entry_watermark_text = tk.Entry()
 entry_watermark_text.grid(column=0, row=5, sticky="W")
 
-text_color_listbox = tk.Listbox()
-i = 0
+colors = []
 for color in COLORS:
-    text_color_listbox.insert(i, color)
-    i += 1
-text_color_listbox.config(height=i)
-text_color_listbox.bind("<<ListboxSelect>>", text_color_listbox_used)
-text_color_listbox.grid(column=0, row=6, sticky="W", pady=(0, 15))
+    colors.append(color)
+selected_color = tk.StringVar()
+selected_color.set("black")
+text_color_menu = tk.OptionMenu(window, selected_color, *colors)
+text_color_menu.grid(column=0, row=6, sticky="W", pady=(0, 15))
 
 radiobutton_image = tk.Radiobutton(text="Image Watermark", value="image", variable=radio_state, command=radio_used)
 radiobutton_image.grid(column=0, row=7, sticky="W")
@@ -182,6 +177,6 @@ watermark_button.grid(column=0, row=11,  sticky="W", pady=(0, 30))
 image = ""
 watermark_image = ""
 output_image = "watermark.jpg"
-r, g, b, a = (0, 0, 0, 255)
+r, g, b, a = (0, 0, 0, 255)  # default black, not transparent
 
 window.mainloop()
