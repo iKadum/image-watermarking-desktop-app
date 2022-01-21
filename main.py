@@ -115,7 +115,8 @@ def watermark_func():
         else:
             image_watermark(image, watermark_image, output_image)
 
-        messagebox.showinfo(title="Watermark Added", message="Watermark successfully added to image!")
+        messagebox.showinfo(title="Watermark Added", message="Watermark successfully added to image!\n"
+                                                             f"Image filename: {output_image}")
     except AttributeError:
         messagebox.showerror(title="Error", message="Please select an image!")
 
@@ -168,7 +169,7 @@ label_watermark_image = tk.Label(text="Chosen image: none")
 label_watermark_image.grid(column=0, row=11, sticky="W", pady=(0, 30))
 label_watermark_image.configure(state="disabled")
 
-tk.Label(text="Chose watermark opacity: ").grid(column=0, row=12, sticky="W")
+tk.Label(text="Choose watermark opacity level: ").grid(column=0, row=12, sticky="W")
 
 opacity_steps = []
 for step in range(10, 101, 10):
